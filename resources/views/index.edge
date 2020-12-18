@@ -1,0 +1,39 @@
+@layout('layouts.main')
+
+@section('title')
+JobPostr - The Place You Can Help People
+@endsection
+
+@section('filter')
+<div>
+  <div class="animate__animated animate__zoomIn filter-container">
+    <div class="filter-wrapper"></div>
+    <p class="clear">Clear</p>
+  </div>
+</div>
+@endsection
+
+@section('content')
+<div class="page-title">All Jobs </div>
+
+@each(job in jobs)
+<div class="animate__animated animate__backInUp content-container ">
+  <div class="line-featured"></div>
+  <div class="content-wrapper">
+    <div class="content">
+      <h2 class="company">{{job.user_name.toUpperCase()}}</h2>
+      <h1 class="position"><a href="">{{job.position}}</a></h1>
+      <p class="posted-at">{{job.created_at}}<i class="fa fa-circle"></i><span class="contract">Contract</span><i
+          class="fa fa-circle"></i><span class="location">{{job.location}}</span></p>
+    </div>
+  </div>
+
+  <div class="category-placeholder">
+    @each(language in job.languages.split(","))
+    <div class="category-item">{{language}}</div>
+    @endeach
+  </div>
+</div>
+@endeach
+
+@endsection

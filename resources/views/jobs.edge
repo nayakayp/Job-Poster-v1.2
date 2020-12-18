@@ -1,0 +1,96 @@
+@layout('layouts.main')
+
+@section('title')
+JobPostr - Post your Job
+@endsection
+
+@section('extracss')
+{{ style('forms') }}
+@endsection
+
+@section('content')
+<h1>Post a Job</h1>
+
+
+<div class="job-container">
+    @if(flashMessage('message'))
+    <span>{{ flashMessage('message') }}</span>
+    @endif
+    <form action="{{ route('JobController.create') }}" method="POST">
+        {{ csrfField() }}
+
+        <label for="position">Job Position</label>
+        <input type="text" name="position" value="{{ old('position', '') }}">
+        @if(hasErrorFor('position'))
+        <span>
+            {{ getErrorFor('position') }}
+        </span>
+        @endif
+
+        <label for="role">Job Role</label>
+        <input type="text" name="role" value="{{ old('role', '') }}">
+        @if(hasErrorFor('role'))
+        <span>
+            {{ getErrorFor('role') }}
+        </span>
+        @endif
+
+        <label for="level">Job Level</label>
+        <input type="text" name="level">
+        @if(hasErrorFor('level'))
+        <span>
+            {{ getErrorFor('level') }}
+        </span>
+        @endif
+
+        <label for="contract">Contract Type</label>
+        <input type="text" name="contract">
+        @if(hasErrorFor('contract'))
+        <span>
+            {{ getErrorFor('contract') }}
+        </span>
+        @endif
+
+        <label for="location">Job Location</label>
+        <input type="text" name="location">
+        @if(hasErrorFor('location'))
+        <span>
+            {{ getErrorFor('location') }}
+        </span>
+        @endif
+
+        <label for="languages">Programming Languages</label>
+        <input type="text" name="languages">
+        <h5>Multiple languages split by comma</h5>
+        @if(hasErrorFor('languages'))
+        <span>
+            {{ getErrorFor('languages') }}
+        </span>
+        @endif
+
+        <button type="submit">Submit a Job</button>
+    </form>
+</div>
+
+<h2 style="margin-top:2rem; font-size:2rem;">My jobs</h2>
+
+@each(job in jobs)
+<div class="animate__animated animate__backInUp content-container ">
+    <div class="content-wrapper">
+        <div class="content">
+            <h1 class="position"><a href="">{{job.position}}</a></h1>
+            <a href="{{ route('JobController.delete', { id: job.id }) }}">[Delete]</a>
+            <a href="{{ route('JobController.edit', { id: job.id }) }}">[Edit]</a>
+
+        </div>
+    </div>
+
+    <div class="category-placeholder">
+        @each(language in job.languages.split(","))
+        <div class="category-item">{{language}}</div>
+        @endeach
+
+    </div>
+</div>
+@endeach
+@endsection

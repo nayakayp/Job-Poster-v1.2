@@ -1,0 +1,74 @@
+@layout('layouts.main')
+
+@section('title')
+JobPostr - Post your Job
+@endsection
+
+@section('extracss')
+{{ style('forms') }}
+@endsection
+
+@section('content')
+<h1>Edit your Job</h1>
+
+
+<div class="job-container">
+    @if(flashMessage('message'))
+    <span>{{ flashMessage('message') }}</span>
+    @endif
+    <form action="{{ route('JobController.update',{ id: job.id }) }}" method="POST">
+        {{ csrfField() }}
+
+        <label for="position">Job Position</label>
+        <input type="text" name="position" value="{{ job.position }}">
+        @if(hasErrorFor('position'))
+        <span>
+            {{ getErrorFor('position') }}
+        </span>
+        @endif
+
+        <label for="role">Job Role</label>
+        <input type="text" name="role" value="{{ job.role }}"">
+        @if(hasErrorFor('role'))
+        <span>
+            {{ getErrorFor('role') }}
+        </span>
+        @endif
+
+        <label for=" level">Job Level</label>
+        <input type="text" name="level" value="{{ job.level }}">
+        @if(hasErrorFor('level'))
+        <span>
+            {{ getErrorFor('level') }}
+        </span>
+        @endif
+
+        <label for="contract">Contract Type</label>
+        <input type="text" name="contract" value="{{ job.contract }}">
+        @if(hasErrorFor('contract'))
+        <span>
+            {{ getErrorFor('contract') }}
+        </span>
+        @endif
+
+        <label for="location">Job Location</label>
+        <input type="text" name="location" value="{{ job.location }}">
+        @if(hasErrorFor('location'))
+        <span>
+            {{ getErrorFor('location') }}
+        </span>
+        @endif
+
+        <label for="languages">Programming Languages</label>
+        <input type="text" name="languages" value="{{ job.languages }}">
+        <h5>Multiple languages split by comma</h5>
+        @if(hasErrorFor('languages'))
+        <span>
+            {{ getErrorFor('languages') }}
+        </span>
+        @endif
+
+        <button type="submit">Update Job</button>
+    </form>
+</div>
+@endsection
