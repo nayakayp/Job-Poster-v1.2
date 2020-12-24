@@ -54,7 +54,6 @@ function filtering() {
   removeFilterItems.forEach(function removeItem(filterItem) {
     filterItem.addEventListener("click", removeThis);
   });
-
   // UNTUK DISPLAY CONTAINER YANG MEMENUHI FILTER
   if (filterBox.childNodes.length == 0) {
     contentContainer.forEach(function (container) {
@@ -63,6 +62,7 @@ function filtering() {
   } else {
     filterBox.childNodes.forEach(function (filterItem) {
       contentContainer.forEach(function (container) {
+        console.log(container);
         container.childNodes[2].childNodes.forEach(function (categoryItem) {
           if (filterItem.textContent == categoryItem.textContent) {
             found++;
